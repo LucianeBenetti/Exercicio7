@@ -29,10 +29,13 @@
         <div class="secao2">
             <h1>Informação obtida a partir do local informado!</h1>   
             <br />
-        
+
             <c:forEach var="diretorioBuscado" items="${diretorios}"> 
+                <f:formatNumber var ="tamanho" value="${tamanho}" type="number" groupingUsed="true" />
                 <br />
-                ${diretorioBuscado}
+                ${diretorioBuscado}  
+                <br />          
+                ${tamanho}
                 <br />
 
             </c:forEach> 
