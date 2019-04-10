@@ -1,0 +1,17 @@
+.secao1{
+    background-color: buttonface; /*Cor de fundo branca*/
+    padding: 5px;
+    margin-top: 1px;/*Margen superior com 1 pixel*/
+    float: left;/*propriedade indicando que a Área flutuará a esquerda*/
+    width: 45%; /*Ocupando 24% da largura total destinada para o corpo*/
+    height: 500px; /*Altura de 500 pixels*/
+}
+.secao2{
+    background-color: powderblue;/*Cor de fundo*/
+    border-left: 10px;
+    padding: 8px;/*Margen interna de 3 pixels*/
+    float: right;/*propriedade indicando que a Área flutuará a direita*/
+    margin-top: 1px;/*Margen superior com 1 pixel*/
+    width: 50%;/*Ocupando 74% da largura total destinada para o corpo*/
+    height: 494px;/*Altura de 494 pixels*/
+}
