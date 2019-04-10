@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -22,24 +23,28 @@ public class BuscaDiretorio extends HttpServlet {
         String buscar = request.getParameter("diretorio");
         File buscaDiretorio = new File(buscar);
         File arquivos = null;
-        String conteudo = "";
-        double tamanho = 0;
-        String modificado = "";
+        ArrayList<String> conteudo = new ArrayList<>();
+        ArrayList<Long> tamanho = new ArrayList<>();
+        //  String modificado = "";
         if (buscaDiretorio.isDirectory()) {
+
             File[] diretorio = buscaDiretorio.listFiles();
 
             for (int i = 0; i < diretorio.length; i++) {
                 arquivos = diretorio[i];
-                conteudo += arquivos.getName() + "\n";
-                tamanho += arquivos.getUsableSpace();
-                modificado += arquivos.lastModified();
-            }
-            request.setAttribute("diretorios", conteudo);
-            request.setAttribute("tamanho",  new Double(tamanho));
-            request.setAttribute("modificado", modificado);
-            System.out.println(conteudo);
-        }
+                conteudo.add(arquivos.getName());
+                tamanho.add(arquivos.getUsableSpace());
+                request.setAttribute("diretorios", conteudo);
 
+                //   request.setAttribute("tamanho", tamanho);
+                //   request.setAttribute("modificado", modificado);
+            }
+        }
+        if (conteudo.contains(".")) {
+
+            request.setAttribute("diretorioDesenho", arquivos);
+            System.out.println(arquivos);
+        }
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 

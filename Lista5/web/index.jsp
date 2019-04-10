@@ -4,6 +4,7 @@
     Author     : 80130917
 --%>
 
+<%@page import="Servlet.BuscaDiretorio"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib  uri="http://java.sun.com/jsp/jstl/fmt" prefix="f" %> 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -28,18 +29,24 @@
 
         <div class="secao2">
             <h1>Informação obtida a partir do local informado!</h1>   
-            <br />
+            <br /> 
 
             <c:forEach var="diretorioBuscado" items="${diretorios}"> 
                 <f:formatNumber var ="tamanho" value="${tamanho}" type="number" groupingUsed="true" />
                 <br />
-                ${diretorioBuscado}  
-                <br />          
-                ${tamanho}
+
+                <c:choose> 
+                    <c:when test="${diretorioDesenho}">
+                        ${diretorioBuscado}   ${tamanho} 
+                    </c:when>
+                    <c:otherwise>
+                        <li>   ${diretorioBuscado}   ${tamanho}</li>
+                        </c:otherwise> 
+                    </c:choose> 
+
                 <br />
 
             </c:forEach> 
-            <br />
 
         </div>
     </body>
