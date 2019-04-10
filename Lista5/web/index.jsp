@@ -36,11 +36,11 @@
                 <br />
 
                 <c:choose> 
-                    <c:when test="${diretorioDesenho}">
+                    <c:when test="${arquivoBuscado}">
                         ${diretorioBuscado}   ${tamanho} 
                     </c:when>
                     <c:otherwise>
-                        <li>   ${diretorioBuscado}   ${tamanho}</li>
+                        <img src="desenho.jpg">   ${diretorioBuscado}   ${tamanho}
                         </c:otherwise> 
                     </c:choose> 
 

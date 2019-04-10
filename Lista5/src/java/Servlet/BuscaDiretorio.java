@@ -23,8 +23,8 @@ public class BuscaDiretorio extends HttpServlet {
         String buscar = request.getParameter("diretorio");
         File buscaDiretorio = new File(buscar);
         File arquivos = null;
-        ArrayList<String> conteudo = new ArrayList<>();
-        ArrayList<Long> tamanho = new ArrayList<>();
+        ArrayList<String> conteudoDiretorio = new ArrayList<>();
+        //ArrayList<Long> tamanho = new ArrayList<>();
         //  String modificado = "";
         if (buscaDiretorio.isDirectory()) {
 
@@ -32,18 +32,24 @@ public class BuscaDiretorio extends HttpServlet {
 
             for (int i = 0; i < diretorio.length; i++) {
                 arquivos = diretorio[i];
-                conteudo.add(arquivos.getName());
-                tamanho.add(arquivos.getUsableSpace());
-                request.setAttribute("diretorios", conteudo);
+                conteudoDiretorio.add(arquivos.getName());
+                //  tamanho.add(arquivos.getUsableSpace());
+                request.setAttribute("diretorios", conteudoDiretorio);
 
                 //   request.setAttribute("tamanho", tamanho);
                 //   request.setAttribute("modificado", modificado);
             }
         }
-        if (conteudo.contains(".")) {
 
-            request.setAttribute("diretorioDesenho", arquivos);
-            System.out.println(arquivos);
+        for (File diretorioBuscado : buscaDiretorio.listFiles()) {
+            if (diretorioBuscado.isDirectory()) {
+
+                request.setAttribute("diretorioBuscado", diretorioBuscado);
+                System.out.println(diretorioBuscado);
+            } else if (diretorioBuscado.isFile()) {
+                request.setAttribute("arquivoBuscado", diretorioBuscado.getName());
+                System.out.println(diretorioBuscado.getName());
+            }
         }
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
