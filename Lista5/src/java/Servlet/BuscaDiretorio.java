@@ -1,5 +1,6 @@
 package Servlet;
 
+import Classes.Pastas;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -23,34 +24,28 @@ public class BuscaDiretorio extends HttpServlet {
         String buscar = request.getParameter("diretorio");
         File buscaDiretorio = new File(buscar);
         File arquivos = null;
-        ArrayList<String> conteudoDiretorio = new ArrayList<>();
-        //ArrayList<Long> tamanho = new ArrayList<>();
-        //  String modificado = "";
+        ArrayList<Pastas> conteudoDiretorio = new ArrayList<>();
+        
         if (buscaDiretorio.isDirectory()) {
-
             File[] diretorio = buscaDiretorio.listFiles();
 
             for (int i = 0; i < diretorio.length; i++) {
+                Pastas pastas = new Pastas();
                 arquivos = diretorio[i];
-                conteudoDiretorio.add(arquivos.getName());
-                //  tamanho.add(arquivos.getUsableSpace());
-                request.setAttribute("diretorios", conteudoDiretorio);
-
-                //   request.setAttribute("tamanho", tamanho);
-                //   request.setAttribute("modificado", modificado);
+                pastas.setNome(arquivos.getName());
+                pastas.setTamanho(arquivos.getUsableSpace());
+                pastas.setUltimaModificacao(new Date(arquivos.lastModified()));
+                if (arquivos.isDirectory()) {
+                    pastas.setEhDiretorio(true);
+                }else{
+                    pastas.setEhDiretorio(false);
+                }
+                conteudoDiretorio.add(pastas);
             }
         }
-
-        for (File diretorioBuscado : buscaDiretorio.listFiles()) {
-            if (diretorioBuscado.isDirectory()) {
-
-                request.setAttribute("diretorioBuscado", diretorioBuscado);
-                System.out.println(diretorioBuscado);
-            } else if (diretorioBuscado.isFile()) {
-                request.setAttribute("arquivoBuscado", diretorioBuscado.getName());
-                System.out.println(diretorioBuscado.getName());
-            }
-        }
+        
+        System.out.println(conteudoDiretorio);
+        request.setAttribute("diretorios", conteudoDiretorio);
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 

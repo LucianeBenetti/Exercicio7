@@ -31,20 +31,11 @@
             <h1>Informação obtida a partir do local informado!</h1>   
             <br /> 
 
-            <c:forEach var="diretorioBuscado" items="${diretorios}"> 
-                <f:formatNumber var ="tamanho" value="${tamanho}" type="number" groupingUsed="true" />
-                <br />
-
-                <c:choose> 
-                    <c:when test="${arquivoBuscado}">
-                        ${diretorioBuscado}   ${tamanho} 
-                    </c:when>
-                    <c:otherwise>
-                        <img src="desenho.jpg">   ${diretorioBuscado}   ${tamanho}
-                        </c:otherwise> 
-                    </c:choose> 
-
-                <br />
+            <c:forEach var="diretorio" items="${diretorios}"> 
+                <br /> 
+                ${diretorio.nome} ${diretorio.tamanho} ${diretorio.ultimaModificacao} 
+                <br /> 
+                <img src="desenho.jpg">  ${diretorio.nome} ${diretorio.tamanho} ${diretorio.ultimaModificacao}  
 
             </c:forEach> 
 
