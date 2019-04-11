@@ -1,5 +1,6 @@
 package Servlet;
 
+import Classes.AtributosData;
 import Classes.Pastas;
 import java.io.BufferedReader;
 import java.io.File;
@@ -7,6 +8,10 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.FileTime;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -25,26 +30,33 @@ public class BuscaDiretorio extends HttpServlet {
         File buscaDiretorio = new File(buscar);
         File arquivos = null;
         ArrayList<Pastas> conteudoDiretorio = new ArrayList<>();
-        
+
         if (buscaDiretorio.isDirectory()) {
             File[] diretorio = buscaDiretorio.listFiles();
 
             for (int i = 0; i < diretorio.length; i++) {
                 Pastas pastas = new Pastas();
                 arquivos = diretorio[i];
+
                 pastas.setNome(arquivos.getName());
-                pastas.setTamanho(arquivos.getUsableSpace());
                 pastas.setUltimaModificacao(new Date(arquivos.lastModified()));
+                long tamanhoKB = arquivos.length() / 1024;
+                pastas.setTamanho(tamanhoKB + "KB");
+                BasicFileAttributes dataCriacao = Files.readAttributes(arquivos.toPath(), BasicFileAttributes.class);
+                FileTime fileTime = dataCriacao.creationTime();
+                Date dataCriado = new Date(fileTime.toMillis());
+                pastas.setDataCriacao(dataCriado);
+                pastas.setCaminho(arquivos.getAbsolutePath());
+
                 if (arquivos.isDirectory()) {
                     pastas.setEhDiretorio(true);
-                }else{
+                } else {
                     pastas.setEhDiretorio(false);
                 }
                 conteudoDiretorio.add(pastas);
             }
         }
-        
-        System.out.println(conteudoDiretorio);
+
         request.setAttribute("diretorios", conteudoDiretorio);
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }

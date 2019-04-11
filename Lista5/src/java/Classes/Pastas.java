@@ -1,26 +1,28 @@
-
 package Classes;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 
 public class Pastas {
- 
+
     private String nome;
     private boolean ehDiretorio;
-    private long tamanho;
+    private String tamanho;
     private Date dataCriacao;
     private Date ultimaModificacao;
+    private String caminho;
 
     public Pastas() {
     }
 
-    public Pastas(String nome, boolean ehDiretorio, long tamanho, Date dataCriacao, Date ultimaModificacao) {
-       
+    public Pastas(String nome, boolean ehDiretorio, String tamanho, Date dataCriacao, Date ultimaModificacao, String caminho) {
         this.nome = nome;
-        this.ehDiretorio=ehDiretorio;
+        this.ehDiretorio = ehDiretorio;
         this.tamanho = tamanho;
         this.dataCriacao = dataCriacao;
         this.ultimaModificacao = ultimaModificacao;
+        this.caminho = caminho;
     }
 
     public String getNome() {
@@ -39,13 +41,11 @@ public class Pastas {
         this.ehDiretorio = ehDiretorio;
     }
 
-
-
-    public long getTamanho() {
+    public String getTamanho() {
         return tamanho;
     }
 
-    public void setTamanho(long tamanho) {
+    public void setTamanho(String tamanho) {
         this.tamanho = tamanho;
     }
 
@@ -65,11 +65,13 @@ public class Pastas {
         this.ultimaModificacao = ultimaModificacao;
     }
 
-    @Override
-    public String toString() {
-        return "DadosArquivosDiretorios{" + ", nomeArquivo=" + nome + ", "+" tamanho=" + tamanho + ", dataCriacao=" + dataCriacao + ", ultimaModificacao=" + ultimaModificacao + '}';
+    public String getCaminho() {
+        return caminho;
     }
-    
-    
-    
+
+    public void setCaminho(String caminho) {
+        this.caminho = caminho;
+    }
+
+
 }

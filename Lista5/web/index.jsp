@@ -12,12 +12,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="estiloProjeto.css">
+        <link rel="stylesheet" type="text/css" href="estilo.css">
+
         <title>Leitura arquivos</title>
     </head>
-    <body>
-        <div class="secao1">
-            <h1>Leitura de diretórios e arquivos</h1>
+    <body>    
+        <header class="buscarDiretorio">
+            <h3>Leitura de diretórios e arquivos</h3>
 
             <form action="buscadiretorio" method="post">
                 Digite o local onde estão armazenados os arquivos:<br/><br/>
@@ -25,20 +26,41 @@
                 <input type="text" name="diretorio" value="" />
                 <input type="submit" name="submit" value="Ler Diretorio" /><br/><br/><hr/>
             </form>
-        </div>
-
-        <div class="secao2">
-            <h1>Informação obtida a partir do local informado!</h1>   
+        </header>
+       
+        <div class="secao1">
+            <h3>Informação obtida a partir do local informado!</h3>   
             <br /> 
+           
+            <table border="0">
+                <tr>
+                    <td><b>Nome</b></td>
+                    <td><b>Data de modificação</b></td>
+                    <td><b>Data de criação</b></td>
+                    <td><b>Tamanho</b></td>
+                </tr>
+                <c:forEach var="diretorio" items="${diretorios}"> 
+                    <tr>
+                        <c:choose> 
+                            <c:when test="${diretorio.ehDiretorio}">
+                                <td><img src="desenho.jpg"><a href="${diretorio.caminho}"> ${diretorio.nome}</a></td>
+                                <td><f:formatDate value="${diretorio.ultimaModificacao}" pattern="dd/MM/yyyy"/></td>
+                                <td><f:formatDate value="${diretorio.dataCriacao}" pattern="dd/MM/yyyy"/></td> 
+                                <td>${diretorio.tamanho}</td>
 
-            <c:forEach var="diretorio" items="${diretorios}"> 
-                <br /> 
-                ${diretorio.nome} ${diretorio.tamanho} ${diretorio.ultimaModificacao} 
-                <br /> 
-                <img src="desenho.jpg">  ${diretorio.nome} ${diretorio.tamanho} ${diretorio.ultimaModificacao}  
+                            </c:when>
+                            <c:otherwise>
+                                <td><a href="${diretorio.caminho}" type="text/html"> ${diretorio.nome}</a></td>    
+                                <td><f:formatDate value="${diretorio.ultimaModificacao}" pattern="dd/MM/yyyy"/></td>
+                                <td><f:formatDate value="${diretorio.dataCriacao}" pattern="dd/MM/yyyy"/></td> 
+                                <td>${diretorio.tamanho}</td>
 
-            </c:forEach> 
-
+                            </c:otherwise> 
+                        </c:choose> 
+                    </tr>
+                </c:forEach> 
+            </table>
         </div>
+
     </body>
 </html>
