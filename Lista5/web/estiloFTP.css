@@ -32,3 +32,8 @@ tr, td {
     text-align: center;
     width: 10%;
 }
+.coluna1{
+    border:0px;
+    padding: 5px;
+    text-align: left;
+}

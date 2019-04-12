@@ -43,14 +43,14 @@
                     <tr>
                         <c:choose> 
                             <c:when test="${diretorio.ehDiretorio}">
-                                <td><img src="desenho.jpg"><a href="${diretorio.caminho}"> ${diretorio.nome}</a></td>
+                                <td class="coluna1"><img src="desenho.jpg"><a href="${diretorio.caminho}"> ${diretorio.nome}</a></td>
                                 <td><f:formatDate value="${diretorio.ultimaModificacao}" pattern="dd/MM/yyyy"/></td>
                                 <td><f:formatDate value="${diretorio.dataCriacao}" pattern="dd/MM/yyyy"/></td> 
                                 <td>${diretorio.tamanho}</td>
 
                             </c:when>
                             <c:otherwise>
-                                <td><a href="${diretorio.caminho}" type="text/html"> ${diretorio.nome}</a></td>    
+                                <td class="coluna1"><a href="${diretorio.caminho}" type="text/html"> ${diretorio.nome}</a></td>    
                                 <td><f:formatDate value="${diretorio.ultimaModificacao}" pattern="dd/MM/yyyy"/></td>
                                 <td><f:formatDate value="${diretorio.dataCriacao}" pattern="dd/MM/yyyy"/></td> 
                                 <td>${diretorio.tamanho}</td>
