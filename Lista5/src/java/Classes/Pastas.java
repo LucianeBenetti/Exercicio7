@@ -73,5 +73,8 @@ public class Pastas {
         this.caminho = caminho;
     }
 
-
+    @Override
+    public String toString() {
+        return "Pastas{" + "nome=" + nome + ", ehDiretorio=" + ehDiretorio + ", tamanho=" + tamanho + ", dataCriacao=" + dataCriacao + ", ultimaModificacao=" + ultimaModificacao + ", caminho=" + caminho + '}';
+    }
 }

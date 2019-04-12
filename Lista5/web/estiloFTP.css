@@ -1,15 +1,17 @@
 .secao1{
+    font-family: 'Roboto', sans-serif;
     background-color: buttonface; /*Cor de fundo branca*/
     padding: 0px;
     margin-top: 0px;/*Margen superior com 1 pixel*/
     margin-left: -4px;
     margin-right: 0px;
     width: 100%; /*Ocupando 24% da largura total destinada para o corpo*/
-    height: 600px; /*Altura de 500 pixels*/
+    height: 800px; /*Altura de 500 pixels*/
 }
 .buscarDiretorio{
-    background-color: gray;
-    margin-top: 0px;
+    font-family: 'Roboto', sans-serif;
+    background-color: darkgrey;
+    margin-top: -18px;
     margin-right: -8px;
     margin-left: 0px;
     padding: 8px;
@@ -17,4 +19,16 @@
     width: 100%; /*Ocupando 24% da largura total destinada para o corpo*/
     height: 150px; /*Altura de 500 pixels*/
 }
-
+table {
+    width: 100%;
+    clear: both;
+    border-collapse: collapse;
+    text-transform: initial;
+    margin-top:0px;
+}
+tr, td {
+    border:0px;
+    padding: 5px;
+    text-align: center;
+    width: 10%;
+}

@@ -1,6 +1,5 @@
 package Servlet;
 
-import Classes.AtributosData;
 import Classes.Pastas;
 import java.io.BufferedReader;
 import java.io.File;
@@ -43,11 +42,12 @@ public class BuscaDiretorio extends HttpServlet {
                 long tamanhoKB = arquivos.length() / 1024;
                 pastas.setTamanho(tamanhoKB + "KB");
                 BasicFileAttributes dataCriacao = Files.readAttributes(arquivos.toPath(), BasicFileAttributes.class);
-                FileTime fileTime = dataCriacao.creationTime();
-                Date dataCriado = new Date(fileTime.toMillis());
+                FileTime criacaoArquivo = dataCriacao.creationTime();
+                Date dataCriado = new Date(criacaoArquivo.toMillis());
                 pastas.setDataCriacao(dataCriado);
+                // pastas.setCaminho("file:///" + arquivos.getAbsolutePath().replaceAll("\\\\", "/"));
                 pastas.setCaminho(arquivos.getAbsolutePath());
-
+                
                 if (arquivos.isDirectory()) {
                     pastas.setEhDiretorio(true);
                 } else {
