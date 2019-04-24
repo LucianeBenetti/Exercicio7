@@ -1,13 +1,35 @@
 .secao1{
-    background: url(tortaBelga.jpg) no-repeat 110px 110px, url(cheesecake.jpg) no-repeat 110px 170px, url(tiramisu.jpg) no-repeat 110px 230px,
-        url(tresleches.jpg) no-repeat 110px 280px, url(maracuja.jpg) no-repeat 100px 350px;
+    background: url(tortaBelga.jpg) no-repeat 150px 110px, url(cheesecake.jpg) no-repeat 150px 170px, url(tiramisu.jpg) no-repeat 150px 200px,
+        url(tresleches.jpg) no-repeat 150px 230px, url(maracuja.jpg) no-repeat 150px 250px;
     background-color: buttonface;
     color: black;
     padding: 5px;
     margin-bottom: 0px;/*Margen superior com 1 pixel*/
     float: left;/*propriedade indicando que a Área flutuará a esquerda*/
+    width: 100%; /*Ocupando 24% da largura total destinada para o corpo*/
     height: 576px; /*Altura de 500 pixels*/
-    width: 100%;
+}
+.secao2{
+    background: url(tortaBelga.jpg) no-repeat 130px 120px, url(cheesecake.jpg) no-repeat 130px 170px, url(tiramisu.jpg) no-repeat 140px 200px,
+        url(tresleches.jpg) no-repeat 130px 280px, url(maracuja.jpg) no-repeat 120px 350px;
+    background-color: buttonface;
+    color: black;
+    padding: 5px;
+    margin-bottom: 0px;/*Margen superior com 1 pixel*/
+    float: left;/*propriedade indicando que a Área flutuará a esquerda*/
+    width: 46.5%; /*Ocupando 24% da largura total destinada para o corpo*/
+    height: 576px; /*Altura de 500 pixels*/
+}
+
+.secao3{
+    background-color: lightcoral;/*Cor de fundo*/    
+    padding: 5px;/*Margen interna de 3 pixels*/
+    float: right;/*propriedade indicando que a Área flutuará a direita*/
+    margin-right: -16px;
+    margin-bottom: 0px;/*Margen superior com 1 pixel*/
+    margin-left: 0px;
+    width: 53%;/*Ocupando 74% da largura total destinada para o corpo*/
+    height: 576px;/*Altura de 494 pixels*/
 }
 table {
     width: 100%;

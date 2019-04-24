@@ -24,6 +24,7 @@ public class Pedido extends HttpServlet {
             Double valorPedido = 0.0;
             Integer valorCalorias = 0;
             Integer caloriasTotal = 0;
+            ArrayList<Cardapio> cardapioCliente = new ArrayList<Cardapio>();
 
             for (int i = 0; i < cardapio.size(); i++) {
 
@@ -33,22 +34,22 @@ public class Pedido extends HttpServlet {
                 String descricao = cardapio.get(i).getDescricao();
 
                 String quantidade = request.getParameter("valores_" + i);
-                int qtidade = Integer.parseInt(quantidade);
-                
-                Cardapio pedidoCardapio = new Cardapio(nome, preco, descricao, calorias, qtidade);
 
-                valorPedido = preco * qtidade;
-                valorCalorias = calorias * qtidade;
-                cardapio.add(pedidoCardapio);
+                Cardapio pedidoCardapio = new Cardapio(nome, preco, descricao, calorias, quantidade);
+
+//                int qtidade = Integer.valueOf(quantidade);
+//                valorPedido = preco * qtidade;
+//                valorCalorias = calorias * qtidade;
+                cardapioCliente.add(pedidoCardapio);
 
             }
-            System.out.println(cardapio);
-            valorTotal += valorTotal + valorPedido;
-            caloriasTotal += caloriasTotal + valorCalorias;
-
-            request.setAttribute("valor", valorTotal);
-            request.setAttribute("calorias", caloriasTotal);
-            request.setAttribute("pedido", cardapio);
+            System.out.println(cardapioCliente);
+//            valorTotal += valorTotal + valorPedido;
+//            caloriasTotal += caloriasTotal + valorCalorias;
+//
+//            request.setAttribute("valor", valorTotal);
+//            request.setAttribute("calorias", caloriasTotal);
+            request.setAttribute("pedido", cardapioCliente);
         }
 
         request.getRequestDispatcher("pedidoCliente.jsp").forward(request, response);

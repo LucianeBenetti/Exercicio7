@@ -31,7 +31,6 @@
         %>
         <section class="secao1">
             <h3>Conheça nosso Menu de Tortas e Sobremesas</h3>   
-            
                 
                 <table border="0">
                     <thead>
