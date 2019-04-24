@@ -14,11 +14,11 @@
     </head>
     <body>
         <%
-            Object nomeTorta = request.getAttribute("nome");
+            Object pedidoCliente = request.getAttribute("pedido");
 
-            if (nomeTorta != null) {
-                ArrayList<String> menu = (ArrayList<String>) nomeTorta;
-                out.print(menu);
+            if (pedidoCliente != null) {
+              //  ArrayList<String> nome = (ArrayList<String>) nomeTorta;
+                out.print(pedidoCliente);
             }
         %>
     </body>

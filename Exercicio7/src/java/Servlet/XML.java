@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Transformer;
@@ -50,8 +51,7 @@ public class XML extends HttpServlet {
 
                 for (int i = 0; i < nList.getLength(); i++) {
                     Cardapio menu = new Cardapio();
-                    String cardapio = nList.item(i).getNodeName();
-
+                 
                     NodeList childs = nList.item(i).getChildNodes();
                     menu.setNome(childs.item(1).getTextContent());
                     menu.setPreco(Double.parseDouble(childs.item(3).getTextContent()));
@@ -60,6 +60,8 @@ public class XML extends HttpServlet {
                     conteudoCardapio.add(menu);
 
                 }
+                HttpSession session = request.getSession();
+                session.setAttribute("cardapio", conteudoCardapio);
                 request.setAttribute("conteudoCardapio", conteudoCardapio);
 
             } catch (Exception e) {

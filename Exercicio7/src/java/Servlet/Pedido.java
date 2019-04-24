@@ -1,32 +1,58 @@
-
 package Servlet;
 
+import Classes.Cardapio;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 public class Pedido extends HttpServlet {
 
-       protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String nome = "";
-        ArrayList<String> dados = new ArrayList<String> ();
-        for (int i = 0; i < 5; i++) {
-     
-        nome = request.getParameter("nome_"+i);
-        dados.add(nome);
-        System.out.println(dados);
-        
+
+        Object c = request.getSession().getAttribute("cardapio");
+        if (c != null) {
+            ArrayList<Cardapio> cardapio = (ArrayList<Cardapio>) c;
+
+            Double valorTotal = 0.0;
+            Double valorPedido = 0.0;
+            Integer valorCalorias = 0;
+            Integer caloriasTotal = 0;
+
+            for (int i = 0; i < cardapio.size(); i++) {
+
+                String nome = cardapio.get(i).getNome();
+                Double preco = cardapio.get(i).getPreco();
+                int calorias = cardapio.get(i).getCalorias();
+                String descricao = cardapio.get(i).getDescricao();
+
+                String quantidade = request.getParameter("valores_" + i);
+                int qtidade = Integer.parseInt(quantidade);
+                
+                Cardapio pedidoCardapio = new Cardapio(nome, preco, descricao, calorias, qtidade);
+
+                valorPedido = preco * qtidade;
+                valorCalorias = calorias * qtidade;
+                cardapio.add(pedidoCardapio);
+
+            }
+            System.out.println(cardapio);
+            valorTotal += valorTotal + valorPedido;
+            caloriasTotal += caloriasTotal + valorCalorias;
+
+            request.setAttribute("valor", valorTotal);
+            request.setAttribute("calorias", caloriasTotal);
+            request.setAttribute("pedido", cardapio);
         }
-        request.setAttribute("nome", dados);
+
         request.getRequestDispatcher("pedidoCliente.jsp").forward(request, response);
-       
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
