@@ -103,7 +103,7 @@ public class GravaXML extends HttpServlet {
         Document doc = dBuilder.newDocument();
         Element rootTag = doc.createElement("estados");
 
-        for (Estado e : estados) {
+       // for (Estado e : estados) {
             Element estado = doc.createElement("estado");
             estado.setAttribute("sigla", e.getSigla());
             estado.setAttribute("nome", e.getNome());
