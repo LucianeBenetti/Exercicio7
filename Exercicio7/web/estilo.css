@@ -1,0 +1,41 @@
+.secao1{
+    background: url(tortaBelga.jpg) no-repeat 110px 110px, url(cheesecake.jpg) no-repeat 110px 170px, url(tiramisu.jpg) no-repeat 110px 230px,
+        url(tresleches.jpg) no-repeat 110px 280px, url(maracuja.jpg) no-repeat 100px 350px;
+    background-color: buttonface;
+    color: black;
+    padding: 5px;
+    margin-bottom: 0px;/*Margen superior com 1 pixel*/
+    float: left;/*propriedade indicando que a Área flutuará a esquerda*/
+    height: 576px; /*Altura de 500 pixels*/
+    width: 100%;
+}
+table {
+    width: 100%;
+    clear: both;
+    border-collapse: collapse;
+    text-transform: initial;
+    margin-top:0px;
+}
+th {
+    color: #4d4d4d;
+    font-weight: bold;
+}
+.nome{
+    text-align: left;
+}
+tr, td {
+    border:0px;
+    padding: 20px;
+    text-align: center;
+}
+.buscarMenu{
+    font-family: 'Roboto', sans-serif;
+    background-color: darkgrey;
+    margin-top: -18px;
+    margin-right: -8px;
+    margin-left: 0px;
+    padding: 5px;
+    float: right;    
+    width: 100%; /*Ocupando 24% da largura total destinada para o corpo*/
+    height: 80px; /*Altura de 500 pixels*/
+}

@@ -12,7 +12,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="estil.css">
+        <link rel="stylesheet" type="text/css" href="estilo.css">
         <title>Cardapio</title>
     </head>
     <body>
@@ -38,6 +38,7 @@
                         <th>Descricao</th>
                         <th>Calorias</th>
                         <th>Preço</th>
+                        <th>Quantidade</th>
                     </tr>
                 </thead>
 
@@ -49,52 +50,14 @@
                     <td class="nome"><% out.print(opcoesCardapio.getNome()); %></td>
                     <td><% out.print(opcoesCardapio.getDescricao()); %></td>
                     <td><% out.print(opcoesCardapio.getCalorias()); %></td>
-                    <td>R$ <% out.print(opcoesCardapio.getPreco()); %></td>
+                    <td><% out.print(opcoesCardapio.getPreco()); %></td>
+                    <td class="qtdade"> <input type="number" value="0" name="valores"></td>
                 </tr>
                 <%   }  %>
                 <br />          
 
-            </table>
-        </section>
-
-        <section class="secao2">
-            <h3>Escolha a quantidade e faça seu Pedido</h3>
-            <form name="pedido" action="Pedido.jsp" method="POST">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Quantidade</th>
-                            <th>Preço por Unidade</th>
-                            <th>Calorias por Unidade</th>
-                    <br>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        <%
-                            for (int i = 0; i < menu.size(); i++) {
-                                Cardapio opcoesCardapio = menu.get(i);
-                        %>
-                        <tr class="item">
-
-                            <td class="nomePedido"><% out.print(opcoesCardapio.getNome());%></td>
-                            <td class="qtdade"> 
-                                <a class="btn-decrementa">-</a>
-                                <input max="100" class="quantidade" value="0" type="number" readonly="" name="valores">  
-                                <a class="btn-incrementa">+</a>
-                            </td>
-                            <td class="preco-item"><%out.print(opcoesCardapio.getPreco()); %></td>
-                            <td class="calorias-item"><%out.print(opcoesCardapio.getCalorias()); %></td>
-                        </tr>  
-                        <%}%>   
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td class="total" colspan="2">Total (preço total em R$)</td>
-                            <td name="total" id="total">0</td>
-                            <td name="totalCalorias" id="totalCalorias">0</td>
-                        </tr>
-                    </tfoot>
+                 
+                  
                 </table>
                 <br>
                 <br>
