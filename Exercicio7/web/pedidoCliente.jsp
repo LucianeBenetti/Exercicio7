@@ -16,7 +16,7 @@
     </head>
     <body>
         <%
-            Object pedidoCliente = request.getAttribute("pedido");
+            Object pedidoCliente = request.getAttribute("pedidoCliente");
 
             if (pedidoCliente != null) {
                 ArrayList<Cardapio> pedido = (ArrayList<Cardapio>) pedidoCliente;
@@ -45,27 +45,31 @@
                     <td><% out.print(opcoesCardapio.getPreco());%></td>
                     <td><% out.print(opcoesCardapio.getCalorias()); %></td>
                 </tr>
-                <%   }%>
-                <br />          
-
+                <%}%>
+                <br />  
+                <tr>
+                    <td class="total" colspan="2">Total (preço total em R$)</td>
+                    <td>0</td>
+                    <td>0</td>
+                </tr>
             </table>
-            <br>
-            <br>
-           
-            </form>
+  <%}%>
         </section>
-                
- 
-         <section class="secao3">
-            <h3>Digite seus dados para processar o pedido</h3>
-            <form name="pedido" action="Pedido.jsp" method="POST">
-               
+
+        <section class="secao3">
+            <form action="gerarxml" method="POST">
+                <h3>Digite seus dados para processar o pedido</h3>
+
+                Nome do cliente:
+                <input type="text" name="nomeCliente"><br><br>
+                Endereço:
+                <input type="text" name="enderecoCliente"><br><br>
+                Celular:
+                <input type="text" name="celularCliente"><br><br>
                 <br>
                 <br>
                 <input type="submit" name="enviar" value="Gerar XML">
             </form>
         </section>
-     
-        <%}%>
-    </body>
+</body>
 </html>

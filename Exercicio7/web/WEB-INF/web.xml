@@ -11,6 +11,10 @@
         <servlet-name>Pedido</servlet-name>
         <servlet-class>Servlet.Pedido</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GerarXML</servlet-name>
+        <servlet-class>Servlet.GerarXML</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>XML</servlet-name>
         <url-pattern>/xml</url-pattern>
@@ -18,6 +22,10 @@
     <servlet-mapping>
         <servlet-name>Pedido</servlet-name>
         <url-pattern>/pedido</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GerarXML</servlet-name>
+        <url-pattern>/gerarxml</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

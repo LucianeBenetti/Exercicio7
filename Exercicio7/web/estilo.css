@@ -1,6 +1,6 @@
 .secao1{
-    background: url(tortaBelga.jpg) no-repeat 150px 110px, url(cheesecake.jpg) no-repeat 150px 170px, url(tiramisu.jpg) no-repeat 150px 200px,
-        url(tresleches.jpg) no-repeat 150px 230px, url(maracuja.jpg) no-repeat 150px 250px;
+    background: url(tortaBelga.jpg) no-repeat 110px 110px, url(cheesecake.jpg) no-repeat 110px 170px, url(tiramisu.jpg) no-repeat 110px 240px,
+        url(tresleches.jpg) no-repeat 110px 300px, url(maracuja.jpg) no-repeat 90px 350px;
     background-color: buttonface;
     color: black;
     padding: 5px;
@@ -10,8 +10,8 @@
     height: 576px; /*Altura de 500 pixels*/
 }
 .secao2{
-    background: url(tortaBelga.jpg) no-repeat 130px 120px, url(cheesecake.jpg) no-repeat 130px 170px, url(tiramisu.jpg) no-repeat 140px 200px,
-        url(tresleches.jpg) no-repeat 130px 280px, url(maracuja.jpg) no-repeat 120px 350px;
+    background: url(tortaBelga.jpg) no-repeat 140px 120px, url(cheesecake.jpg) no-repeat 140px 170px, url(tiramisu.jpg) no-repeat 140px 220px,
+        url(tresleches.jpg) no-repeat 140px 280px, url(maracuja.jpg) no-repeat 130px 350px;
     background-color: buttonface;
     color: black;
     padding: 5px;

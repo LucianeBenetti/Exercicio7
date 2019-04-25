@@ -35,8 +35,8 @@ public class XML extends HttpServlet {
         if (conhecerCardapio != null) {
             try {
 
-                File arquivoEstados = new File("C:\\SENAC\\XML\\cardapio.xml");
-                FileInputStream encontrarArquivo = new FileInputStream(arquivoEstados);
+                File arquivoCardapio = new File("C:\\SENAC\\XML\\cardapio.xml");
+                FileInputStream encontrarArquivo = new FileInputStream(arquivoCardapio);
 
                 DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -50,14 +50,14 @@ public class XML extends HttpServlet {
                 ArrayList<Cardapio> conteudoCardapio = new ArrayList<Cardapio>();
 
                 for (int i = 0; i < nList.getLength(); i++) {
-                    Cardapio menu = new Cardapio();
+                    Cardapio itemDeCardapio = new Cardapio();
                  
                     NodeList childs = nList.item(i).getChildNodes();
-                    menu.setNome(childs.item(1).getTextContent());
-                    menu.setPreco(Double.parseDouble(childs.item(3).getTextContent()));
-                    menu.setDescricao(childs.item(5).getTextContent());
-                    menu.setCalorias(Integer.parseInt(childs.item(7).getTextContent()));
-                    conteudoCardapio.add(menu);
+                    itemDeCardapio.setNome(childs.item(1).getTextContent());
+                    itemDeCardapio.setPreco(Double.parseDouble(childs.item(3).getTextContent()));
+                    itemDeCardapio.setDescricao(childs.item(5).getTextContent());
+                    itemDeCardapio.setCalorias(Integer.parseInt(childs.item(7).getTextContent()));
+                    conteudoCardapio.add(itemDeCardapio);
 
                 }
                 HttpSession session = request.getSession();

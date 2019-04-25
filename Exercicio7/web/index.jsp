@@ -18,7 +18,7 @@
     <body>
 
         <header class="buscarMenu">
-            <h4>Clique no link abaixo e acesse nosso cardápio especial de tortas e sobremesas: </h4>
+            <h4>Clique no botão abaixo e acesse nosso cardápio especial de tortas e sobremesas: </h4>
             <form action="xml" method="POST"> 
                 <input type="submit" name="conhecerCardapio" value="Conhecer Cardápio">
             </form>
@@ -31,7 +31,6 @@
         %>
         <section class="secao1">
             <h3>Conheça nosso Menu de Tortas e Sobremesas</h3>   
-                
                 <table border="0">
                     <thead>
                         <tr>
@@ -42,28 +41,25 @@
                             <th>Quantidade</th>
                         </tr>
                     </thead>
-
                     <%
                         for (int i = 0; i < menu.size(); i++) {
-                            Cardapio opcoesCardapio = menu.get(i);
+                            Cardapio itemDeCardapio = menu.get(i);
                     %>
                     <tr>
-                        <td><% out.print(opcoesCardapio.getNome()); %></td>
-                        <td><% out.print(opcoesCardapio.getDescricao()); %></td>
-                        <td><% out.print(opcoesCardapio.getCalorias()); %></td>
-                        <td><% out.print(opcoesCardapio.getPreco());%></td>
-                        <td> <input type="number" value="0" name="valores_<%= i%>"></td>
+                        <td><% out.print(itemDeCardapio.getNome()); %></td>
+                        <td><% out.print(itemDeCardapio.getDescricao()); %></td>
+                        <td><% out.print(itemDeCardapio.getCalorias()); %></td>
+                        <td><% out.print(itemDeCardapio.getPreco());%></td>
+                        <td> <input type="number" size="4" min="0" value="0" name="valores_<%= i%>"></td>
                     </tr>
                     <%   }  %>
                     <br />          
-
                 </table>
                 <br>
                 <br>
                 <input type="submit" name="enviar" value="Enviar Pedido">
             </form>
         </section>
-        <script type="text/javascript" src="calcularCampos.js"></script>
         <%}%>
     </body>
 </html>

@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class Pedido extends HttpServlet {
 
@@ -16,15 +17,16 @@ public class Pedido extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        Object c = request.getSession().getAttribute("cardapio");
-        if (c != null) {
-            ArrayList<Cardapio> cardapio = (ArrayList<Cardapio>) c;
+        Object objetosMenu = request.getSession().getAttribute("cardapio");
+
+        if (objetosMenu != null) {
+            ArrayList<Cardapio> cardapio = (ArrayList<Cardapio>) objetosMenu;
 
             Double valorTotal = 0.0;
             Double valorPedido = 0.0;
             Integer valorCalorias = 0;
             Integer caloriasTotal = 0;
-            ArrayList<Cardapio> cardapioCliente = new ArrayList<Cardapio>();
+            ArrayList<Cardapio> pedidoCliente = new ArrayList<Cardapio>();
 
             for (int i = 0; i < cardapio.size(); i++) {
 
@@ -35,21 +37,24 @@ public class Pedido extends HttpServlet {
 
                 String quantidade = request.getParameter("valores_" + i);
 
-                Cardapio pedidoCardapio = new Cardapio(nome, preco, descricao, calorias, quantidade);
+                Cardapio pedido = new Cardapio(nome, preco, descricao, calorias, quantidade);
 
-//                int qtidade = Integer.valueOf(quantidade);
-//                valorPedido = preco * qtidade;
-//                valorCalorias = calorias * qtidade;
-                cardapioCliente.add(pedidoCardapio);
+                int qtidade = Integer.valueOf(quantidade);
+                valorPedido = preco * qtidade;
+                valorCalorias = calorias * qtidade;
+                pedidoCliente.add(pedido);
 
             }
-            System.out.println(cardapioCliente);
-//            valorTotal += valorTotal + valorPedido;
-//            caloriasTotal += caloriasTotal + valorCalorias;
-//
-//            request.setAttribute("valor", valorTotal);
-//            request.setAttribute("calorias", caloriasTotal);
-            request.setAttribute("pedido", cardapioCliente);
+
+            valorTotal += valorTotal + valorPedido;
+            caloriasTotal += caloriasTotal + valorCalorias;
+            
+            HttpSession session = request.getSession();
+            session.setAttribute("pedidoCliente", pedidoCliente);
+
+            request.setAttribute("valor", valorTotal);
+            request.setAttribute("calorias", caloriasTotal);
+            request.setAttribute("pedidoCliente", pedidoCliente);
         }
 
         request.getRequestDispatcher("pedidoCliente.jsp").forward(request, response);
