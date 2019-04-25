@@ -1,18 +1,22 @@
 package Classes;
 
+import java.util.Date;
+
 public class Cliente {
 
     private String nome;
     private String celular;
     private String endereço;
+    private Date dataPedido;
 
     public Cliente() {
     }
 
-    public Cliente(String nome, String celular, String endereço) {
+    public Cliente(String nome, String celular, String endereço, Date dataPedido) {
         this.nome = nome;
         this.celular = celular;
         this.endereço = endereço;
+        this.dataPedido = dataPedido;
     }
 
     public String getNome() {
@@ -39,11 +43,18 @@ public class Cliente {
         this.endereço = endereço;
     }
 
+    public Date getDataPedido() {
+        return dataPedido;
+    }
+
+    public void setDataPedido(Date dataPedido) {
+        this.dataPedido = dataPedido;
+    }
+
     @Override
     public String toString() {
-        return "Cliente{" + "nome=" + nome + ", celular=" + celular + ", endere\u00e7o=" + endereço + '}';
+        return "Cliente{" + "nome=" + nome + ", celular=" + celular + ", endere\u00e7o=" + endereço + ", dataPedido=" + dataPedido + '}';
     }
-    
-    
 
+    
 }

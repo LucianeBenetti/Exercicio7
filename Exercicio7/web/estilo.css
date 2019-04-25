@@ -10,8 +10,8 @@
     height: 576px; /*Altura de 500 pixels*/
 }
 .secao2{
-    background: url(tortaBelga.jpg) no-repeat 140px 120px, url(cheesecake.jpg) no-repeat 140px 170px, url(tiramisu.jpg) no-repeat 140px 220px,
-        url(tresleches.jpg) no-repeat 140px 280px, url(maracuja.jpg) no-repeat 130px 350px;
+    background: url(tortaBelga.jpg) no-repeat 110px 120px, url(cheesecake.jpg) no-repeat 110px 170px, url(tiramisu.jpg) no-repeat 110px 220px,
+        url(tresleches.jpg) no-repeat 110px 280px, url(maracuja.jpg) no-repeat 100px 350px;
     background-color: buttonface;
     color: black;
     padding: 5px;
@@ -20,7 +20,6 @@
     width: 46.5%; /*Ocupando 24% da largura total destinada para o corpo*/
     height: 576px; /*Altura de 500 pixels*/
 }
-
 .secao3{
     background-color: lightcoral;/*Cor de fundo*/    
     padding: 5px;/*Margen interna de 3 pixels*/
@@ -60,4 +59,10 @@ tr, td {
     float: right;    
     width: 100%; /*Ocupando 24% da largura total destinada para o corpo*/
     height: 80px; /*Altura de 500 pixels*/
+}
+.dadosPedido{
+    text-align: left;
+}
+.quantidade{
+    size: 1px;
 }

@@ -9,7 +9,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -39,12 +41,9 @@ public class GerarXML extends HttpServlet {
         String nomeCliente = request.getParameter("nomeCliente");
         String celularCliente = request.getParameter("celularCliente");
         String enderecoCliente = request.getParameter("enderecoCliente");
-        System.out.println(nomeCliente);
-        System.out.println(celularCliente);
-        System.out.println(enderecoCliente);
 
         ArrayList<Cliente> dadosCliente = new ArrayList<Cliente>();
-
+        ArrayList<Cardapio> dadosPedido = new ArrayList<Cardapio>();
         if (pedidoCliente != null) {
             ArrayList<Cardapio> pedido = (ArrayList<Cardapio>) pedidoCliente;
 
@@ -53,9 +52,16 @@ public class GerarXML extends HttpServlet {
                 Cliente cliente = new Cliente();
                 String nome = pedido.get(i).getNome();
                 String quantidade = pedido.get(i).getQuantidade();
+                String descricao = pedido.get(i).getDescricao();
+
+                Double preco = pedido.get(i).getPreco();
+                int calorias = pedido.get(i).getCalorias();
                 cliente.setNome(nomeCliente);
                 cliente.setCelular(celularCliente);
                 cliente.setEndereço(enderecoCliente);
+                cliente.setDataPedido(new Date(System.currentTimeMillis()));
+                Cardapio nomeQuantidadePedido = new Cardapio(nome, preco, descricao, calorias, quantidade);
+                dadosPedido.add(nomeQuantidadePedido);
                 dadosCliente.add(cliente);
             }
         }
@@ -64,20 +70,21 @@ public class GerarXML extends HttpServlet {
 
         Document doc = dBuilder.newDocument();
         Element rootTag = doc.createElement("order");
+
         Cliente c = dadosCliente.get(0);
+        Element dataHora = doc.createElement("created");
         Element clienteNome = doc.createElement("name");
         Element clienteCelular = doc.createElement("phone_number");
         Element clienteEndereco = doc.createElement("address");
+        dataHora.setTextContent(String.valueOf(c.getDataPedido()));
         clienteNome.setTextContent(String.valueOf(c.getNome()));
         clienteCelular.setTextContent(String.valueOf(c.getCelular()));
         clienteEndereco.setTextContent(String.valueOf(c.getEndereço()));
-
         Element itens = doc.createElement("itens");
 
-//            for (Cidade c : e.getCidades()) {
-//                Element cidade = doc.createElement("cidade");
-//
-//                Element nome = doc.createElement("nome");
+        for (Cardapio cardapio : dadosPedido) {
+
+            Element item = doc.createElement("item");
 //                cidade.appendChild(nome);
 //                nome.setTextContent(c.getNome());
 //
@@ -93,11 +100,13 @@ public class GerarXML extends HttpServlet {
 //                cidade.appendChild(area);
 //                area.setTextContent(String.valueOf(c.getArea()));
 //
-//                estado.appendChild(cidade);
-        //     }
+            itens.appendChild(item);
+        }
+        rootTag.appendChild(dataHora);
         rootTag.appendChild(clienteNome);
         rootTag.appendChild(clienteCelular);
         rootTag.appendChild(clienteEndereco);
+        rootTag.appendChild(itens);
 
         doc.appendChild(rootTag);
 

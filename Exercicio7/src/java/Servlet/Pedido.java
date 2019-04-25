@@ -19,13 +19,14 @@ public class Pedido extends HttpServlet {
 
         Object objetosMenu = request.getSession().getAttribute("cardapio");
 
+        Double valorTotal = 0.0;
+        Double valorPedido = 0.0;
+        Integer valorCalorias = 0;
+        Integer caloriasTotal = 0;
+
         if (objetosMenu != null) {
             ArrayList<Cardapio> cardapio = (ArrayList<Cardapio>) objetosMenu;
 
-            Double valorTotal = 0.0;
-            Double valorPedido = 0.0;
-            Integer valorCalorias = 0;
-            Integer caloriasTotal = 0;
             ArrayList<Cardapio> pedidoCliente = new ArrayList<Cardapio>();
 
             for (int i = 0; i < cardapio.size(); i++) {
@@ -34,27 +35,24 @@ public class Pedido extends HttpServlet {
                 Double preco = cardapio.get(i).getPreco();
                 int calorias = cardapio.get(i).getCalorias();
                 String descricao = cardapio.get(i).getDescricao();
-
                 String quantidade = request.getParameter("valores_" + i);
-
                 Cardapio pedido = new Cardapio(nome, preco, descricao, calorias, quantidade);
-
-                int qtidade = Integer.valueOf(quantidade);
-                valorPedido = preco * qtidade;
-                valorCalorias = calorias * qtidade;
                 pedidoCliente.add(pedido);
 
+                int qtidade = Integer.valueOf(quantidade);
+                valorCalorias = calorias * qtidade;
+                valorPedido = preco * qtidade;
+                valorTotal += valorPedido;
+                caloriasTotal += valorCalorias;
             }
-
-            valorTotal += valorTotal + valorPedido;
-            caloriasTotal += caloriasTotal + valorCalorias;
-            
+        
             HttpSession session = request.getSession();
             session.setAttribute("pedidoCliente", pedidoCliente);
 
             request.setAttribute("valor", valorTotal);
             request.setAttribute("calorias", caloriasTotal);
             request.setAttribute("pedidoCliente", pedidoCliente);
+
         }
 
         request.getRequestDispatcher("pedidoCliente.jsp").forward(request, response);

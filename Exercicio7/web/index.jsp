@@ -46,11 +46,11 @@
                             Cardapio itemDeCardapio = menu.get(i);
                     %>
                     <tr>
-                        <td><% out.print(itemDeCardapio.getNome()); %></td>
-                        <td><% out.print(itemDeCardapio.getDescricao()); %></td>
-                        <td><% out.print(itemDeCardapio.getCalorias()); %></td>
-                        <td><% out.print(itemDeCardapio.getPreco());%></td>
-                        <td> <input type="number" size="4" min="0" value="0" name="valores_<%= i%>"></td>
+                        <td class="dadosPedido"><% out.print(itemDeCardapio.getNome()); %></td>
+                        <td ><% out.print(itemDeCardapio.getDescricao()); %></td>
+                        <td ><% out.print(itemDeCardapio.getCalorias()); %></td>
+                        <td ><% out.print(itemDeCardapio.getPreco());%></td>
+                        <td class="quantidade"> <input type="number" style="width: 50px" min="0" value="0" name="valores_<%= i%>"></td>
                     </tr>
                     <%   }  %>
                     <br />          

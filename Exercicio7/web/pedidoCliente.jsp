@@ -4,6 +4,7 @@
     Author     : 80130917
 --%>
 
+<%@page import="java.lang.Integer"%>
 <%@page import="Classes.Cardapio"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -16,10 +17,14 @@
     </head>
     <body>
         <%
+            Integer caloriasTotal = ((Integer) (request.getAttribute("calorias"))).intValue();
+
             Object pedidoCliente = request.getAttribute("pedidoCliente");
+            Object valorTotal = request.getAttribute("valor");
 
             if (pedidoCliente != null) {
                 ArrayList<Cardapio> pedido = (ArrayList<Cardapio>) pedidoCliente;
+                
         %>   
         <section class="secao2">
             <h3>Pedido Efetuado</h3>   
@@ -35,25 +40,26 @@
                     </tr>
                 </thead>
 
-                <%
-                    for (int i = 0; i < pedido.size(); i++) {
+                <%      for (int i = 0; i < pedido.size(); i++) {
                         Cardapio opcoesCardapio = pedido.get(i);
                 %>
                 <tr>
-                    <td><% out.print(opcoesCardapio.getNome()); %></td>
+                    <td class="dadosPedido"><% out.print(opcoesCardapio.getNome()); %></td>
                     <td><% out.print(opcoesCardapio.getQuantidade()); %></td>
                     <td><% out.print(opcoesCardapio.getPreco());%></td>
                     <td><% out.print(opcoesCardapio.getCalorias()); %></td>
                 </tr>
                 <%}%>
                 <br />  
+
                 <tr>
-                    <td class="total" colspan="2">Total (preço total em R$)</td>
-                    <td>0</td>
-                    <td>0</td>
+                    <td class="total" colspan="2">Total</td>
+                    <td>R$ <%= valorTotal%></td>
+                    <td><%= caloriasTotal%></td>
                 </tr>
+
             </table>
-  <%}%>
+            <%}%>
         </section>
 
         <section class="secao3">
@@ -61,15 +67,15 @@
                 <h3>Digite seus dados para processar o pedido</h3>
 
                 Nome do cliente:
-                <input type="text" name="nomeCliente"><br><br>
+                <input type="text" name="nomeCliente" required><br><br>
                 Endereço:
-                <input type="text" name="enderecoCliente"><br><br>
+                <input type="text" name="enderecoCliente" required><br><br>
                 Celular:
-                <input type="text" name="celularCliente"><br><br>
+                <input type="text" name="celularCliente" required><br><br>
                 <br>
                 <br>
-                <input type="submit" name="enviar" value="Gerar XML">
+                <input type="submit" name="enviar" value="Efetuar Pedido">
             </form>
         </section>
-</body>
+    </body>
 </html>
