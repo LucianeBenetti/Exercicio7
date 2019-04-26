@@ -38,100 +38,100 @@ public class GerarXML extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParserConfigurationException, TransformerConfigurationException, TransformerException {
         response.setContentType("text/html;charset=UTF-8");
-         try (PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
 
-        Object pedidoCliente = request.getSession().getAttribute("pedidoCliente");
-        String nomeCliente = request.getParameter("nomeCliente");
-        String celularCliente = request.getParameter("celularCliente");
-        String enderecoCliente = request.getParameter("enderecoCliente");
+            Object pedidoCliente = request.getSession().getAttribute("pedidoCliente");
+            String nomeCliente = request.getParameter("nomeCliente");
+            String celularCliente = request.getParameter("celularCliente");
+            String enderecoCliente = request.getParameter("enderecoCliente");
 
-        ArrayList<Cliente> dadosCliente = new ArrayList<Cliente>();
-        ArrayList<Cardapio> dadosPedido = new ArrayList<Cardapio>();
-        if (pedidoCliente != null) {
-            ArrayList<Cardapio> pedido = (ArrayList<Cardapio>) pedidoCliente;
+            ArrayList<Cliente> dadosCliente = new ArrayList<Cliente>();
+            ArrayList<Cardapio> dadosPedido = new ArrayList<Cardapio>();
+            if (pedidoCliente != null) {
+                ArrayList<Cardapio> pedido = (ArrayList<Cardapio>) pedidoCliente;
 
-            for (int i = 0; i < pedido.size(); i++) {
+                for (int i = 0; i < pedido.size(); i++) {
 
-                Cliente cliente = new Cliente();
-                String nome = pedido.get(i).getNome();
-                int quantidade = pedido.get(i).getQuantidade();
-                String descricao = pedido.get(i).getDescricao();
+                    Cliente cliente = new Cliente();
+                    String nome = pedido.get(i).getNome();
+                    int quantidade = pedido.get(i).getQuantidade();
+                    String descricao = pedido.get(i).getDescricao();
 
-                Double preco = pedido.get(i).getPreco();
-                int calorias = pedido.get(i).getCalorias();
-                cliente.setNome(nomeCliente);
-                cliente.setCelular(celularCliente);
-                cliente.setEndereço(enderecoCliente);
-                cliente.setDataPedido(new Date(System.currentTimeMillis()));
-                Cardapio nomeQuantidadePedido = new Cardapio(nome, preco, descricao, calorias, quantidade);
-                dadosPedido.add(nomeQuantidadePedido);
-                dadosCliente.add(cliente);
+                    Double preco = pedido.get(i).getPreco();
+                    int calorias = pedido.get(i).getCalorias();
+                    cliente.setNome(nomeCliente);
+                    cliente.setCelular(celularCliente);
+                    cliente.setEndereço(enderecoCliente);
+                    cliente.setDataPedido(new Date(System.currentTimeMillis()));
+                    Cardapio nomeQuantidadePedido = new Cardapio(nome, preco, descricao, calorias, quantidade);
+                    dadosPedido.add(nomeQuantidadePedido);
+                    dadosCliente.add(cliente);
+                }
             }
-        }
-        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 
-        Document doc = dBuilder.newDocument();
-        Element rootTag = doc.createElement("pedido");
+            Document doc = dBuilder.newDocument();
+            Element rootTag = doc.createElement("pedido");
 
-        Cliente c = dadosCliente.get(0);
-        Element dataHora = doc.createElement("criado");
-        Element clienteNome = doc.createElement("nome");
-        Element clienteCelular = doc.createElement("numero_telefone");
-        Element clienteEndereco = doc.createElement("endereco");
-        dataHora.setTextContent(String.valueOf(c.getDataPedido()));
-        clienteNome.setTextContent(String.valueOf(c.getNome()));
-        clienteCelular.setTextContent(String.valueOf(c.getCelular()));
-        clienteEndereco.setTextContent(String.valueOf(c.getEndereço()));
-        Element itens = doc.createElement("itens");
+            Cliente c = dadosCliente.get(0);
+            Element dataHora = doc.createElement("criado");
+            Element clienteNome = doc.createElement("nome");
+            Element clienteCelular = doc.createElement("numero_telefone");
+            Element clienteEndereco = doc.createElement("endereco");
+            dataHora.setTextContent(String.valueOf(c.getDataPedido()));
+            clienteNome.setTextContent(String.valueOf(c.getNome()));
+            clienteCelular.setTextContent(String.valueOf(c.getCelular()));
+            clienteEndereco.setTextContent(String.valueOf(c.getEndereço()));
+            Element itens = doc.createElement("itens");
 
-        for (Cardapio cardapio : dadosPedido) {
-            if (cardapio.getQuantidade() != 0) {
-                Element item = doc.createElement("item");
-                itens.appendChild(item);
+            for (Cardapio cardapio : dadosPedido) {
+                if (cardapio.getQuantidade() != 0) {
+                    Element item = doc.createElement("item");
+                    itens.appendChild(item);
 
-                Element nomeProduto = doc.createElement("nome");
-                item.appendChild(nomeProduto);
-                nomeProduto.setTextContent(String.valueOf(cardapio.getNome()));
+                    Element nomeProduto = doc.createElement("nome");
+                    item.appendChild(nomeProduto);
+                    nomeProduto.setTextContent(String.valueOf(cardapio.getNome()));
 
-                Element quantidade = doc.createElement("quantidade");
-                item.appendChild(quantidade);
-                quantidade.setTextContent(String.valueOf(cardapio.getQuantidade()));
+                    Element quantidade = doc.createElement("quantidade");
+                    item.appendChild(quantidade);
+                    quantidade.setTextContent(String.valueOf(cardapio.getQuantidade()));
 
-                itens.appendChild(item);
-                item.appendChild(nomeProduto);
-                item.appendChild(quantidade);
+                    itens.appendChild(item);
+                    item.appendChild(nomeProduto);
+                    item.appendChild(quantidade);
+                }
             }
+            rootTag.appendChild(dataHora);
+            rootTag.appendChild(clienteNome);
+            rootTag.appendChild(clienteCelular);
+            rootTag.appendChild(clienteEndereco);
+            rootTag.appendChild(itens);
+
+            doc.appendChild(rootTag);
+
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
+            transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+            DOMSource domSource = new DOMSource(doc);
+            StringWriter sw = new StringWriter();
+            StreamResult sr = new StreamResult(sw);
+            transformer.transform(domSource, sr);
+            System.out.println(sw.toString());
+
+            File f = new File("C:\\SENAC\\XML\\pedido.xml");
+            FileOutputStream fout = new FileOutputStream(f);
+            DataOutputStream dout = new DataOutputStream(fout);
+            dout.write(sw.toString().getBytes());
+            dout.close();
+            fout.close();
+
+            out.println("<h1>Pedido Gerado com Sucesso!</h1>");
         }
-        rootTag.appendChild(dataHora);
-        rootTag.appendChild(clienteNome);
-        rootTag.appendChild(clienteCelular);
-        rootTag.appendChild(clienteEndereco);
-        rootTag.appendChild(itens);
-
-        doc.appendChild(rootTag);
-
-        TransformerFactory transformerFactory = TransformerFactory.newInstance();
-        Transformer transformer = transformerFactory.newTransformer();
-        transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
-        transformer.setOutputProperty(OutputKeys.METHOD, "xml");
-        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-        transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-        DOMSource domSource = new DOMSource(doc);
-        StringWriter sw = new StringWriter();
-        StreamResult sr = new StreamResult(sw);
-        transformer.transform(domSource, sr);
-        System.out.println(sw.toString());
-
-        File f = new File("C:\\SENAC\\XML\\pedido.xml");
-        FileOutputStream fout = new FileOutputStream(f);
-        DataOutputStream dout = new DataOutputStream(fout);
-        dout.write(sw.toString().getBytes());
-        dout.close();
-        fout.close();
-        
-        out.println("<h1>Pedido Gerado com Sucesso!</h1>");
-         }
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

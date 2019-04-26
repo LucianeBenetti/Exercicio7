@@ -29,9 +29,9 @@ public class XML extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         String conhecerCardapio = request.getParameter("conhecerCardapio");
-   
+
         if (conhecerCardapio != null) {
             try {
 
@@ -51,7 +51,7 @@ public class XML extends HttpServlet {
 
                 for (int i = 0; i < nList.getLength(); i++) {
                     Cardapio itemDeCardapio = new Cardapio();
-                 
+
                     NodeList childs = nList.item(i).getChildNodes();
                     itemDeCardapio.setNome(childs.item(1).getTextContent());
                     itemDeCardapio.setPreco(Double.parseDouble(childs.item(3).getTextContent()));

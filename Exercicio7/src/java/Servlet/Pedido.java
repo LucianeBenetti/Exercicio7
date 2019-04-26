@@ -47,18 +47,13 @@ public class Pedido extends HttpServlet {
                 valorTotal += valorPedido;
                 caloriasTotal += valorCalorias;
             }
-
             HttpSession session = request.getSession();
             session.setAttribute("pedidoCliente", pedidoCliente);
-
             request.setAttribute("valor", df.format(valorTotal));
             request.setAttribute("calorias", caloriasTotal);
             request.setAttribute("pedidoCliente", pedidoCliente);
-
         }
-
         request.getRequestDispatcher("pedidoCliente.jsp").forward(request, response);
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
