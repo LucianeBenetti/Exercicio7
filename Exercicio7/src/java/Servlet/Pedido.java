@@ -3,6 +3,7 @@ package Servlet;
 import Classes.Cardapio;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -28,6 +29,7 @@ public class Pedido extends HttpServlet {
             ArrayList<Cardapio> cardapio = (ArrayList<Cardapio>) objetosMenu;
 
             ArrayList<Cardapio> pedidoCliente = new ArrayList<Cardapio>();
+            DecimalFormat df = new DecimalFormat("0.00");
 
             for (int i = 0; i < cardapio.size(); i++) {
 
@@ -39,17 +41,17 @@ public class Pedido extends HttpServlet {
                 int qtidade = Integer.valueOf(quantidade);
                 Cardapio pedido = new Cardapio(nome, preco, descricao, calorias, qtidade);
                 pedidoCliente.add(pedido);
-                
+
                 valorCalorias = calorias * qtidade;
                 valorPedido = preco * qtidade;
                 valorTotal += valorPedido;
                 caloriasTotal += valorCalorias;
             }
-        
+
             HttpSession session = request.getSession();
             session.setAttribute("pedidoCliente", pedidoCliente);
 
-            request.setAttribute("valor", valorTotal);
+            request.setAttribute("valor", df.format(valorTotal));
             request.setAttribute("calorias", caloriasTotal);
             request.setAttribute("pedidoCliente", pedidoCliente);
 
