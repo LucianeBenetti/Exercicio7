@@ -6,12 +6,12 @@ public class Cardapio {
     private Double preco;
     private String descricao;
     private int calorias;
-    private String quantidade;
+    private int quantidade;
 
     public Cardapio() {
     }
 
-    public Cardapio(String nome, Double preco, String descricao, int calorias, String quantidade) {
+    public Cardapio(String nome, Double preco, String descricao, int calorias, int quantidade) {
         this.nome = nome;
         this.preco = preco;
         this.descricao = descricao;
@@ -51,11 +51,11 @@ public class Cardapio {
         this.calorias = calorias;
     }
 
-    public String getQuantidade() {
+    public int getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantidade(String quantidade) {
+    public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
     }
 

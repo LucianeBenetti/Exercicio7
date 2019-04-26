@@ -36,10 +36,10 @@ public class Pedido extends HttpServlet {
                 int calorias = cardapio.get(i).getCalorias();
                 String descricao = cardapio.get(i).getDescricao();
                 String quantidade = request.getParameter("valores_" + i);
-                Cardapio pedido = new Cardapio(nome, preco, descricao, calorias, quantidade);
-                pedidoCliente.add(pedido);
-
                 int qtidade = Integer.valueOf(quantidade);
+                Cardapio pedido = new Cardapio(nome, preco, descricao, calorias, qtidade);
+                pedidoCliente.add(pedido);
+                
                 valorCalorias = calorias * qtidade;
                 valorPedido = preco * qtidade;
                 valorTotal += valorPedido;
