@@ -30,7 +30,7 @@ public class XML extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        String conhecerCardapio = request.getParameter("conhecerCardapio");
+        String conhecerCardapio = request.getParameter("cardapioXml");
 
         if (conhecerCardapio != null) {
             try {

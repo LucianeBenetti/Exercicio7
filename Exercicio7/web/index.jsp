@@ -16,21 +16,25 @@
         <title>Cardapio</title>
     </head>
     <body>
-
         <header class="buscarMenu">
             <h4>Clique no botão abaixo e acesse nosso cardápio especial de tortas e sobremesas: </h4>
+            Escolha uma opção:
             <form action="xml" method="POST"> 
-                <input type="submit" name="conhecerCardapio" value="Conhecer Cardápio">
+                <input type="submit" name="cardapioXml" value="Inicialiar Cardápio XML"> <br> <br>
             </form>
-        </header>       
-<form name="pedido" action="pedido" method="POST">
-        <%
-            Object cardapio = request.getAttribute("conteudoCardapio");
-            if (cardapio != null) {
-                ArrayList<Cardapio> menu = (ArrayList<Cardapio>) cardapio;
-        %>
-        <section class="secao1">
-            <h3>Conheça nosso Menu de Tortas e Sobremesas</h3>   
+            <form action="json" method="POST"> 
+                <input type="submit" name="cardapioJson" value="Inicializar Cardápio JSON">
+            </form>
+        </header>   
+        
+        <form name="pedido" action="pedido" method="POST">
+            <%
+                Object cardapio = request.getAttribute("conteudoCardapio");
+                if (cardapio != null) {
+                    ArrayList<Cardapio> menu = (ArrayList<Cardapio>) cardapio;
+            %>
+            <section class="secao1">
+                <h3>Conheça nosso Menu de Tortas e Sobremesas</h3>   
                 <table border="0">
                     <thead>
                         <tr>
@@ -58,8 +62,8 @@
                 <br>
                 <br>
                 <input type="submit" name="enviar" value="Enviar Pedido">
-            </form>
-        </section>
-        <%}%>
+                </form>
+            </section>
+            <%}%>
     </body>
 </html>
