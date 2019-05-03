@@ -6,6 +6,7 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -29,11 +30,13 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-public class GerarXML extends HttpServlet {
+public class GerarXMLJSON extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParserConfigurationException, TransformerConfigurationException, TransformerException {
@@ -45,8 +48,10 @@ public class GerarXML extends HttpServlet {
             String celularCliente = request.getParameter("celularCliente");
             String enderecoCliente = request.getParameter("enderecoCliente");
 
+            Cardapio nomeQuantidadePedido = null;
             ArrayList<Cliente> dadosCliente = new ArrayList<Cliente>();
             ArrayList<Cardapio> dadosPedido = new ArrayList<Cardapio>();
+
             if (pedidoCliente != null) {
                 ArrayList<Cardapio> pedido = (ArrayList<Cardapio>) pedidoCliente;
 
@@ -63,7 +68,7 @@ public class GerarXML extends HttpServlet {
                     cliente.setCelular(celularCliente);
                     cliente.setEndereço(enderecoCliente);
                     cliente.setDataPedido(new Date(System.currentTimeMillis()));
-                    Cardapio nomeQuantidadePedido = new Cardapio(nome, preco, descricao, calorias, quantidade);
+                    nomeQuantidadePedido = new Cardapio(nome, preco, descricao, calorias, quantidade);
                     dadosPedido.add(nomeQuantidadePedido);
                     dadosCliente.add(cliente);
                 }
@@ -130,6 +135,44 @@ public class GerarXML extends HttpServlet {
             dout.close();
             fout.close();
 
+            JSONObject mainObject = new JSONObject();
+            JSONArray arrayObjects = new JSONArray();
+            JSONArray arrayItens = new JSONArray();
+
+            JSONObject obj = new JSONObject();
+            obj.put("Data e Hora do Pedido", c.getDataPedido());
+            obj.put("nome", c.getNome());
+            obj.put("celular", c.getCelular());
+            obj.put("endereco", c.getEndereço());
+            arrayObjects.add(obj);
+
+            for (Cardapio cardapio : dadosPedido) {
+                if (cardapio.getQuantidade() != 0) {
+                    obj = new JSONObject();
+                    obj.put("item", "");
+                    obj.put("produto", cardapio.getNome());
+                    obj.put("quantidade", cardapio.getQuantidade());
+                    arrayItens.add(obj);
+                }
+            }
+            obj = new JSONObject();
+            obj.put("itens", arrayItens);
+            arrayObjects.add(obj);
+
+            mainObject.put("pedido", arrayObjects);
+
+            try {
+//// Writing to a file
+                File file = new File("C:\\SENAC\\XML\\pedidoJSON.json");
+                file.createNewFile();
+                FileWriter fileWriter = new FileWriter(file);
+                fileWriter.write(mainObject.toJSONString());
+                fileWriter.flush();
+                fileWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
             out.println("<h1>Pedido Gerado com Sucesso!</h1>");
         }
     }
@@ -148,10 +191,14 @@ public class GerarXML extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
+
         } catch (ParserConfigurationException ex) {
-            Logger.getLogger(GerarXML.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GerarXMLJSON.class
+                    .getName()).log(Level.SEVERE, null, ex);
+
         } catch (TransformerException ex) {
-            Logger.getLogger(GerarXML.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GerarXMLJSON.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -168,10 +215,14 @@ public class GerarXML extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
+
         } catch (ParserConfigurationException ex) {
-            Logger.getLogger(GerarXML.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GerarXMLJSON.class
+                    .getName()).log(Level.SEVERE, null, ex);
+
         } catch (TransformerException ex) {
-            Logger.getLogger(GerarXML.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GerarXMLJSON.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 

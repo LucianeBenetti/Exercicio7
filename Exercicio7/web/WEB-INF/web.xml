@@ -13,15 +13,11 @@
     </servlet>
     <servlet>
         <servlet-name>GerarXML</servlet-name>
-        <servlet-class>Servlet.GerarXML</servlet-class>
+        <servlet-class>Servlet.GerarXMLJSON</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>JSON</servlet-name>
         <servlet-class>Servlet.JSON</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>GerarPedidoJSON</servlet-name>
-        <servlet-class>Servlet.GerarJSON</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>XML</servlet-name>
@@ -38,10 +34,6 @@
     <servlet-mapping>
         <servlet-name>JSON</servlet-name>
         <url-pattern>/json</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GerarPedidoJSON</servlet-name>
-        <url-pattern>/gerarpedidojson</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

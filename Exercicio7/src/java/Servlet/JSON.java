@@ -56,27 +56,26 @@ public class JSON extends HttpServlet {
                 itemDeCardapio.setDescricao(childs.item(5).getTextContent());
                 itemDeCardapio.setCalorias(Integer.parseInt(childs.item(7).getTextContent()));
                 conteudoCardapio.add(itemDeCardapio);
-
             }
-              
         }
-      
+
         JSONObject mainObject = new JSONObject();
         JSONArray arrayObjects = new JSONArray();
 
         for (int i = 0; i < conteudoCardapio.size(); i++) {
 
             JSONObject obj = new JSONObject();
-            
-            obj.put("refeicao", null);
             obj.put("nome", conteudoCardapio.get(i).getNome());
             obj.put("preco", conteudoCardapio.get(i).getPreco());
             obj.put("descricao", conteudoCardapio.get(i).getDescricao());
             obj.put("calorias", conteudoCardapio.get(i).getCalorias());
             arrayObjects.add(obj);
 
+            obj = new JSONObject();
+            obj.put("refeicao", arrayObjects);
+          //  arrayObjects.add(obj);
+
             mainObject.put("menu", arrayObjects);
-         //   mainObject.put("refeicao", arrayObjects.size());
 
             try {
 //// Writing to a file
@@ -91,7 +90,12 @@ public class JSON extends HttpServlet {
             }
 
         }
-request.setAttribute("conteudoCardapio", conteudoCardapio);
+
+        System.out.println(mainObject);
+
+        HttpSession session = request.getSession();
+        session.setAttribute("cardapio", conteudoCardapio);
+        request.setAttribute("conteudoCardapio", conteudoCardapio);
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
