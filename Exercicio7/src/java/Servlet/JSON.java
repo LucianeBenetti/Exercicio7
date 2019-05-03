@@ -58,22 +58,18 @@ public class JSON extends HttpServlet {
                 conteudoCardapio.add(itemDeCardapio);
             }
         }
-
+        JSONObject obj = new JSONObject();
         JSONObject mainObject = new JSONObject();
         JSONArray arrayObjects = new JSONArray();
 
         for (int i = 0; i < conteudoCardapio.size(); i++) {
-
-            JSONObject obj = new JSONObject();
+            
+            obj.put("refeicao", "");
             obj.put("nome", conteudoCardapio.get(i).getNome());
             obj.put("preco", conteudoCardapio.get(i).getPreco());
             obj.put("descricao", conteudoCardapio.get(i).getDescricao());
             obj.put("calorias", conteudoCardapio.get(i).getCalorias());
-            arrayObjects.add(obj);
-
-            obj = new JSONObject();
-            obj.put("refeicao", arrayObjects);
-          //  arrayObjects.add(obj);
+            arrayObjects.add(obj);      
 
             mainObject.put("menu", arrayObjects);
 
@@ -90,8 +86,7 @@ public class JSON extends HttpServlet {
             }
 
         }
-
-        System.out.println(mainObject);
+      
 
         HttpSession session = request.getSession();
         session.setAttribute("cardapio", conteudoCardapio);
