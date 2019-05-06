@@ -37,19 +37,14 @@ public class JSON extends HttpServlet {
         if (cardapioJson != null) {
             File arquivoCardapio = new File("C:\\SENAC\\XML\\cardapio.xml");
             FileInputStream encontrarArquivo = new FileInputStream(arquivoCardapio);
-
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-
             Document doc = dBuilder.parse(encontrarArquivo);
-
             doc.getDocumentElement().normalize();
-
             NodeList nList = doc.getElementsByTagName("refeicao");
 
             for (int i = 0; i < nList.getLength(); i++) {
                 Cardapio itemDeCardapio = new Cardapio();
-
                 NodeList childs = nList.item(i).getChildNodes();
                 itemDeCardapio.setNome(childs.item(1).getTextContent());
                 itemDeCardapio.setPreco(Double.parseDouble(childs.item(3).getTextContent()));
@@ -64,7 +59,6 @@ public class JSON extends HttpServlet {
         JSONArray arrayRefeicao = new JSONArray();
 
         for (int i = 0; i < conteudoCardapio.size(); i++) {
-
             if (conteudoCardapio.get(i).getCalorias() != 0) {
                 obj = new JSONObject();
                 obj.put("nome", conteudoCardapio.get(i).getNome());
@@ -74,14 +68,12 @@ public class JSON extends HttpServlet {
                 arrayObjects.add(obj);
             }
         }
-
         obj = new JSONObject();
         obj.put("refeicao", arrayObjects);
         arrayRefeicao.add(obj);
         mainObject.put("menu", arrayRefeicao);
-
+        
         try {
-//// Writing to a file
             File file = new File("C:\\SENAC\\XML\\cardapioJSON.json");
             file.createNewFile();
             FileWriter fileWriter = new FileWriter(file);
@@ -91,7 +83,6 @@ public class JSON extends HttpServlet {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         HttpSession session = request.getSession();
         session.setAttribute("cardapio", conteudoCardapio);
         request.setAttribute("conteudoCardapio", conteudoCardapio);

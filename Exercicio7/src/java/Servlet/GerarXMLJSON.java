@@ -150,7 +150,6 @@ public class GerarXMLJSON extends HttpServlet {
             for (Cardapio cardapio : dadosPedido) {
                 if (cardapio.getQuantidade() != 0) {
                     obj = new JSONObject();
-
                     obj.put("produto", cardapio.getNome());
                     obj.put("quantidade", cardapio.getQuantidade());
                     arrayItens.add(obj);
