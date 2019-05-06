@@ -138,6 +138,7 @@ public class GerarXMLJSON extends HttpServlet {
             JSONObject mainObject = new JSONObject();
             JSONArray arrayObjects = new JSONArray();
             JSONArray arrayItens = new JSONArray();
+            JSONArray arrayItem = new JSONArray();
 
             JSONObject obj = new JSONObject();
             obj.put("Data e Hora do Pedido", c.getDataPedido());
@@ -149,14 +150,18 @@ public class GerarXMLJSON extends HttpServlet {
             for (Cardapio cardapio : dadosPedido) {
                 if (cardapio.getQuantidade() != 0) {
                     obj = new JSONObject();
-                    obj.put("item", "");
+
                     obj.put("produto", cardapio.getNome());
                     obj.put("quantidade", cardapio.getQuantidade());
                     arrayItens.add(obj);
                 }
             }
             obj = new JSONObject();
-            obj.put("itens", arrayItens);
+            obj.put("item", arrayItens);
+            arrayItem.add(obj);
+
+            obj = new JSONObject();
+            obj.put("itens", arrayItem);
             arrayObjects.add(obj);
 
             mainObject.put("pedido", arrayObjects);

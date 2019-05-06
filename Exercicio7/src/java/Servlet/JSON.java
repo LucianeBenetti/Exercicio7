@@ -61,32 +61,36 @@ public class JSON extends HttpServlet {
         JSONObject obj = new JSONObject();
         JSONObject mainObject = new JSONObject();
         JSONArray arrayObjects = new JSONArray();
+        JSONArray arrayRefeicao = new JSONArray();
 
         for (int i = 0; i < conteudoCardapio.size(); i++) {
-            
-            obj.put("refeicao", "");
-            obj.put("nome", conteudoCardapio.get(i).getNome());
-            obj.put("preco", conteudoCardapio.get(i).getPreco());
-            obj.put("descricao", conteudoCardapio.get(i).getDescricao());
-            obj.put("calorias", conteudoCardapio.get(i).getCalorias());
-            arrayObjects.add(obj);      
 
-            mainObject.put("menu", arrayObjects);
-
-            try {
-//// Writing to a file
-                File file = new File("C:\\SENAC\\XML\\cardapioJSON.json");
-                file.createNewFile();
-                FileWriter fileWriter = new FileWriter(file);
-                fileWriter.write(mainObject.toJSONString());
-                fileWriter.flush();
-                fileWriter.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (conteudoCardapio.get(i).getCalorias() != 0) {
+                obj = new JSONObject();
+                obj.put("nome", conteudoCardapio.get(i).getNome());
+                obj.put("preco", conteudoCardapio.get(i).getPreco());
+                obj.put("descricao", conteudoCardapio.get(i).getDescricao());
+                obj.put("calorias", conteudoCardapio.get(i).getCalorias());
+                arrayObjects.add(obj);
             }
-
         }
-      
+
+        obj = new JSONObject();
+        obj.put("refeicao", arrayObjects);
+        arrayRefeicao.add(obj);
+        mainObject.put("menu", arrayRefeicao);
+
+        try {
+//// Writing to a file
+            File file = new File("C:\\SENAC\\XML\\cardapioJSON.json");
+            file.createNewFile();
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.write(mainObject.toJSONString());
+            fileWriter.flush();
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         HttpSession session = request.getSession();
         session.setAttribute("cardapio", conteudoCardapio);
