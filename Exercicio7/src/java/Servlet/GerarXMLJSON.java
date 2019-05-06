@@ -164,6 +164,7 @@ public class GerarXMLJSON extends HttpServlet {
             arrayObjects.add(obj);
 
             mainObject.put("pedido", arrayObjects);
+            System.out.println(mainObject);
 
             try {
 //// Writing to a file

@@ -72,6 +72,7 @@ public class JSON extends HttpServlet {
         obj.put("refeicao", arrayObjects);
         arrayRefeicao.add(obj);
         mainObject.put("menu", arrayRefeicao);
+        System.out.println(mainObject);
         
         try {
             File file = new File("C:\\SENAC\\XML\\cardapioJSON.json");
