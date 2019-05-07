@@ -61,6 +61,7 @@ public class JSON extends HttpServlet {
         for (int i = 0; i < conteudoCardapio.size(); i++) {
             if (conteudoCardapio.get(i).getCalorias() != 0) {
                 obj = new JSONObject();
+                
                 obj.put("nome", conteudoCardapio.get(i).getNome());
                 obj.put("preco", conteudoCardapio.get(i).getPreco());
                 obj.put("descricao", conteudoCardapio.get(i).getDescricao());
@@ -71,6 +72,7 @@ public class JSON extends HttpServlet {
         obj = new JSONObject();
         obj.put("refeicao", arrayObjects);
         arrayRefeicao.add(obj);
+       
         mainObject.put("menu", arrayRefeicao);
         System.out.println(mainObject);
         

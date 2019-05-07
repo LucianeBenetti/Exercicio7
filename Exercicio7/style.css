@@ -1,0 +1,11 @@
+.escolherTipoArquivo{
+    font-family: 'Roboto', sans-serif;
+    background-color: darkgrey;
+    margin-top: -10px;
+    margin-right: -8px;
+    margin-left: 0px;
+    padding: 10px;
+    float: right;    
+    width: 100%; /*Ocupando 24% da largura total destinada para o corpo*/
+    height: 200px; /*Altura de 500 pixels*/
+}

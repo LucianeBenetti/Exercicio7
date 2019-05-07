@@ -12,11 +12,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="estilo.css">
+        <link rel="stylesheet" type="text/css" href="style.css">
         <title>Cardapio</title>
     </head>
     <body>
-        <header class="buscarMenu">
+        <div class="escolherTipoArquivo">
             <h4>Clique no botão abaixo e acesse nosso cardápio especial de tortas e sobremesas: </h4>
             Escolha uma opção:
             <form action="xml" method="POST"> 
@@ -25,7 +25,7 @@
             <form action="json" method="POST"> 
                 <input type="submit" name="cardapioJson" value="Inicializar Cardápio JSON">
             </form>
-        </header>   
+        </div>   
         
         <form name="pedido" action="pedido" method="POST">
             <%
