@@ -18,7 +18,6 @@
     <body>
         <%
             Integer caloriasTotal = ((Integer) (request.getAttribute("calorias"))).intValue();
-
             Object pedidoCliente = request.getAttribute("pedidoCliente");
             Object valorTotal = request.getAttribute("valor");
 
